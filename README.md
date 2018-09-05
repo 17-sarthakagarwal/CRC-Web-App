@@ -13,7 +13,7 @@ The Corporate Resource Center (CRC) of the Invertis University has nearly been d
  3) Application Server and Routing Layer - Express.js - http://expressjs.com/
  4) Database Server - MongoDB with Mongoose https://www.mongodb.com/  https://mongoosejs.com/
  
-# Team Members             # Responsibility
+# Team Members and Responsibilities
  1) Priyanka Rawat -        Application Deployment on Heroku and Amazon ElasticBeanstalk.
  2) Nutan Gupta -           Testing the utility functions and routes using Mocha.js.
  3) Tuhin Roy -             Runtime, App server and routing layer with Node.js.
