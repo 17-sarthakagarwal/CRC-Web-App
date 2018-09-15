@@ -1,0 +1,49 @@
+<br/>
+<div class="col-lg-10 col-lg-offset-3">
+<h2 class="welcome-message">Hello Admin!!</h2>
+<h3 class="welcome-message">The following students are registered with the CRC</h3>
+<br/>
+<hr/> 
+<div class="well">
+{{#if students}}
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th scope="col">S.No.</th>
+      <th scope="col">Roll No.</th>
+      <th scope="col">College ID</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Gender</th>
+      <th scope="col">Email</th>
+      <th scope="col">Phone No.</th>
+      <th scope="col">10 Score</th>
+      <th scope="col">12 Score</th>
+    </tr>  
+  </thead>
+  <tbody>
+ 
+  	{{#each students}}
+  		<tr>
+    		<td>{{@index}}</td>
+    		<td>{{rollNO}}</td> 
+    		<td>{{collegeID}}</td>
+    		<td>{{first_name}}</td>
+    		<td>{{last_name}}</td>
+        <td>{{gender}}</td>
+    		<td>{{email}}</td>
+        <td>{{phone}}</td>
+    		<td>{{tenthMarks}}</td>
+    		<td>{{twelvthMarks}}</td>
+  		</tr>
+  	{{/each}}
+
+  {{else}}
+  <td>No data to display!</td>
+  {{/if}}	
+  </tbody>	
+</table>
+</div>
+<hr/>
+</div>
+

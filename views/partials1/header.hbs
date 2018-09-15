@@ -1,0 +1,46 @@
+<header>
+
+    {{#if session.email}}
+
+		{{#ifEquals type "Student"}}
+   
+			<div class="wrapper">
+        <aside class="main_sidebar">
+          <ul>
+            <li><i class="fa fa-user"></i><a href="/profile">Profile</a></li>
+            <li><i class="fa fa-edit"></i><a href="/update">Update Details</a></li>
+            <li><i class="fa fa-bell"></i><a href="/notices">Notices</a></li>
+            <li><i class="fa fa-sign-out"></i><a href="/logout">Logout</a></li>
+           
+          </ul>
+        </aside>
+      </div>
+
+
+		{{/ifEquals}}
+		{{#ifEquals type "Admin"}}
+        <div class="wrapper">
+        <aside class="main_sidebar">
+          <ul>
+            <li><i class="fa fa-arrows"></i><a href="/dashboard">Dashboard</a></li>
+            <li><i class="fa fa-bell-o"></i><a href="/addNotice">Add Notice</a></li>
+            <li><i class="fa fa-sign-out"></i><a href="/logout">Logout</a></li>
+           
+          </ul>
+        </aside>
+      </div>			
+
+		{{/ifEquals}}
+    {{else}}
+    <nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <ul class="nav navbar-nav navbar-right">
+      <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+      <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+    {{/if}}  
+    </ul>
+  </div>
+</nav>	
+</header>
+
+

@@ -1,0 +1,23 @@
+{
+  "name": "session-in-express",
+  "version": "1.0.0",
+  "description": "Learning how sessions work in Express",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.3",
+    "dotenv": "^6.0.0",
+    "express": "^4.16.3",
+    "express-handlebars": "^3.0.0",
+    "express-session": "^1.15.6",
+    "hbs": "^4.0.1",
+    "mongoose": "^5.2.13",
+    "nodemailer": "^4.6.8"
+  }
+}

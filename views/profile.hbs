@@ -1,0 +1,54 @@
+<br/>
+<div class="col-lg-10 col-lg-offset-3">
+<div class="welcome-message">
+  <h3>Welcome {{ Uname }}!</h3>
+</div>
+
+<hr/>
+
+<div class="well">
+<table class="table table-striped">
+   <thead>
+    <tr>
+      <th scope="col">Field</th>
+      <th scope="col">Content</th>
+    </tr>
+  </thead>
+  <tbody>
+  {{#each student}}
+  		<tr>
+  			<td>First Name</td>
+  			<td>{{first_name}}</td>
+  		</tr>
+  		{{#if last_name}}
+  		<tr>
+  			<td>Last Name</td>
+  			<td>{{last_name}}</td>
+  		</tr>
+  		{{/if}}
+  		<tr>
+  			<td>College ID</td>
+  			<td>{{collegeID}}</td>
+  		</tr>
+  		<tr>
+  			<td>Roll No</td>
+  			<td>{{rollNO}}</td>
+  		</tr>
+  		<tr>
+  			<td>Tenth Score</td>
+  			<td>{{tenthMarks}}</td>
+  		</tr>
+  		<tr>
+  			<td>Twelvth Score</td>
+  			<td>{{twelvthMarks}}</td>
+  		</tr>
+  	{{/each}}		
+    </tbody>
+</table>
+</div>
+<hr/>
+</div>
+
+
+
+
