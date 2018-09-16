@@ -408,6 +408,26 @@ app.post('/addNotice', (req,res,next) => {
 });
 
 
+app.get('/exportFile', (req,res,next) => {
+	Student.find({}).then((students) => {
+	var data='';
+	for (var i = 0; i < students.length; i++) {
+    	data=data+(i+1)+'\t'+students[i].collegeID+'\t'+students[i].rollNO+'\t'
+    		+students[i].first_name+'\t'+students[i].last_name+'\t'+students[i].email+'\t'
+    		+students[i].phone+'\t'+students[i].tenthMarks+'\t'+students[i].twelvthMarks+'\n';
+ 	}
+	fs.writeFile('studentsRecord.xls', data, (err) => {
+    	if (err) throw err;
+    	next();
+ 		});
+	}).catch((e) => {
+		console.log(e);
+	});
+}, (req,res,next) => {
+		var file = __dirname+'/studentsRecord.xls';
+		res.download(file);
+});
+
 
 app.get('/logout', (req,res) => {
 	if(typeof req.session.email === 'undefined'){	
