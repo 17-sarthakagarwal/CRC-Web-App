@@ -1,12 +1,12 @@
 {
-  "name": "session-in-express",
+  "name": "crc-web-app",
   "version": "1.0.0",
-  "description": "Learning how sessions work in Express",
+  "description": "This project is for the development of the CRC Web Application as a part of the Final Year Project",
   "main": "index.js",
   "scripts": {
     "start": "nodemon index.js"
   },
-  "author": "",
+  "author": "Priyanka Rawat, Nutan Gupta, Tuhin Roy, Sweet Kumar, Sarthak Agarwal",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",

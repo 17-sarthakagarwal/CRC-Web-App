@@ -411,6 +411,8 @@ app.post('/addNotice', (req,res,next) => {
 app.get('/exportFile', (req,res,next) => {
 	Student.find({}).then((students) => {
 	var data='';
+	data = data+'S.No.'+'\t'+'Roll No.'+'\t'+'College ID'+'\t'+'First Name'+'\t'+'Last Name'+'\t'
+		+'Email'+'\t'+'Phone'+'\t'+'Tenth Score'+'\t'+'Twelvth Score'+'\n';
 	for (var i = 0; i < students.length; i++) {
     	data=data+(i+1)+'\t'+students[i].collegeID+'\t'+students[i].rollNO+'\t'
     		+students[i].first_name+'\t'+students[i].last_name+'\t'+students[i].email+'\t'
