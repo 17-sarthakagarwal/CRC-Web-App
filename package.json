@@ -4,7 +4,10 @@
   "description": "This project is for the development of the CRC Web Application as a part of the Final Year Project",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": "8.11.3"
   },
   "author": "Priyanka Rawat, Nutan Gupta, Tuhin Roy, Sweet Kumar, Sarthak Agarwal",
   "license": "ISC",
