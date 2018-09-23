@@ -41,7 +41,7 @@
     $(document).ready(function(){
    $('#test').on('change', function() {
         var optionVal = $('#test').val();
-        $.post("http://localhost:3000/dashboard",
+        $.post("https://crc-master.herokuapp.com/dashboard || http://localhost:3000/dashboard",
             {
                 optionV : optionVal
             },
