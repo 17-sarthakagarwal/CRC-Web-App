@@ -293,6 +293,22 @@ app.get('/dashboard', (req,res) => {
 	
 });
 
+app.post('/dashboard', (req,res,next) => {
+	let criteriaVal = req.body.optionV;
+	Student.find({ $and: [ { tenthMarks: { $gte: criteriaVal}}, { twelvthMarks: { $gte: criteriaVal}} ]})
+
+		.then((students) => {
+			req.students = students;
+			next();
+		})
+		.catch((e) => {
+			console.log('Error',e);
+		});
+}, (req,res,next) => {
+	f_students = req.students
+	res.send(f_students);
+});
+
 
 app.get('/update', (req,res) => {
 	if(typeof req.session.email === 'undefined'){	//or will be redirected if not in session

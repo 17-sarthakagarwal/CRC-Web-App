@@ -18,6 +18,7 @@
         rel="stylesheet">
     <!-- /google fonts-->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
    
    
 
@@ -36,6 +37,41 @@
 {{> footer }}
 
  <script type="text/javascript" src="css/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
+ <script>
+    $(document).ready(function(){
+   $('#test').on('change', function() {
+        var optionVal = $('#test').val();
+        $.post("http://localhost:3000/dashboard",
+            {
+                optionV : optionVal
+            },
+        function(data, status){
+            $('#tbody').empty();
+            var row = " ";
+            for(var i = 1; i <= data.length; i++) {
+                row += "<tr>";
+               
+                    row += '<td>' + i + '</td>'
+                        +'<td>' + data[i-1].rollNO + '</td>'
+                        +'<td>' + data[i-1].collegeID + '</td>'
+                        +'<td>' + data[i-1].first_name + '</td>'
+                        +'<td>' + data[i-1].last_name + '</td>'
+                        +'<td>' + data[i-1].gender + '</td>'
+                        +'<td>' + data[i-1].email + '</td>'
+                        +'<td>' + data[i-1].phone + '</td>'
+                        +'<td>' + data[i-1].tenthMarks + '</td>'
+                         +'<td>' + data[i-1].twelvthMarks + '</td>';
+            
+                row += "</tr>";
+            }
+            $('#tbody').append(row);
+        });
+    });
+  
+ 
+});
+ </script>
+ 
  
 
 </body>
