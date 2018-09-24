@@ -38,12 +38,15 @@
 
  <script type="text/javascript" src="css/bootstrap-3.3.7-dist/js/bootstrap.js"></script>
  <script>
-    $(document).ready(function(){
-   $('#test').on('change', function() {
+$(document).ready(function(){
+   
+   $('#filter').on('click', function() {
         var optionVal = $('#test').val();
+        var backVal = $('#back').val();
         $.post("https://crc-master.herokuapp.com/dashboard",
             {
-                optionV : optionVal
+                optionV : optionVal,
+                backV : backVal
             },
         function(data, status){
             $('#tbody').empty();
@@ -60,13 +63,17 @@
                         +'<td>' + data[i-1].email + '</td>'
                         +'<td>' + data[i-1].phone + '</td>'
                         +'<td>' + data[i-1].tenthMarks + '</td>'
-                         +'<td>' + data[i-1].twelvthMarks + '</td>';
+                        +'<td>' + data[i-1].twelvthMarks + '</td>'
+                        +'<td>' + data[i-1].btechMarks + '</td>'
+                        +'<td>' + data[i-1].backlogs + '</td>';
             
                 row += "</tr>";
             }
             $('#tbody').append(row);
         });
     });
+
+    
   
  
 });

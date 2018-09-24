@@ -295,7 +295,8 @@ app.get('/dashboard', (req,res) => {
 
 app.post('/dashboard', (req,res,next) => {
 	let criteriaVal = req.body.optionV;
-	Student.find({ $and: [ { tenthMarks: { $gte: criteriaVal}}, { twelvthMarks: { $gte: criteriaVal}} ]})
+	let back = req.body.backV;
+	Student.find({ $and: [ { tenthMarks: { $gte: criteriaVal}}, { twelvthMarks: { $gte: criteriaVal}}, { btechMarks: { $gte: criteriaVal}}, { backlogs: { $lte: back}} ]})
 
 		.then((students) => {
 			req.students = students;
@@ -325,6 +326,8 @@ app.post('/update', (req,res) => {
 	let rollNO = req.body.roll;
 	let tenthMarks = Number(req.body.tenthMarks);
 	let twelvthMarks = req.body.twelvthMarks;
+	let btechMarks = req.body.btechmarks;
+	let backlogs = req.body.backlogs;
 
 	if(tenthMarks<10){
 		tenthMarks = tenthMarks*9.5;
@@ -332,7 +335,7 @@ app.post('/update', (req,res) => {
 	
 	Student.findOneAndUpdate(
 		{email: req.session.email}, 
-		{$set:{collegeID,rollNO,tenthMarks,twelvthMarks}}, 
+		{$set:{collegeID,rollNO,tenthMarks,twelvthMarks,btechMarks,backlogs}}, 
 		{new: true}, (err, doc) => {
     if(err){
         console.log("Something wrong while updating data!");

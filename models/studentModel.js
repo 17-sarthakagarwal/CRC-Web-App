@@ -79,6 +79,20 @@ var StudentSchema = new mongoose.Schema({
 		default: 0,
 		trim:true,
 		minLength:1
+	},
+	btechMarks:{
+		type:Number,
+		required:true,
+		default: 0,
+		trim:true,
+		minLength:1
+	},
+	backlogs:{
+		type:Number,
+		required:true,
+		default: 0,
+		trim:true,
+		minLength:1
 	}
 });
 
