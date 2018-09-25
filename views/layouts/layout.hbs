@@ -73,9 +73,26 @@ $(document).ready(function(){
         });
     });
 
-    
-  
- 
+    $('#export').click(function(){
+        var table = $('#mytable');
+        var data = [];
+    table.find('tr').each(function (rowIndex, r) {
+        var cols = [];
+        $(this).find('th,td').each(function (colIndex, c) {
+            cols.push(c.textContent);
+        });
+        data.push(cols);
+    });
+
+             $.post("https://crc-master.herokuapp.com/exportFile",
+                {
+                    fetchedData: data
+                },
+                function(data,status){
+                    window.open('/exportFile');
+                });
+        
+    });
 });
  </script>
  

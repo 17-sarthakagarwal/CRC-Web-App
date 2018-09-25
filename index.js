@@ -16,6 +16,9 @@ var {Student} = require('./models/studentModel');
 var {Admin} = require('./models/adminModel');
 var {Notice} = require('./models/noticeModel');
 const hbs = require('express-handlebars');
+const util = require('util');
+const writeFile = util.promisify(fs.writeFile);
+
 require('dotenv').config();
 /*app.engine('.hbs', exphbs({
   defaultLayout: 'layout',	
@@ -427,28 +430,30 @@ app.post('/addNotice', (req,res,next) => {
 });
 
 
-app.get('/exportFile', (req,res,next) => {
-	Student.find({}).then((students) => {
+app.post('/exportFile', (req,res,next) => {
+	var students = req.body.fetchedData
 	var data='';
-	data = data+'S.No.'+'\t'+'Roll No.'+'\t'+'College ID'+'\t'+'First Name'+'\t'+'Last Name'+'\t'
-		+'Email'+'\t'+'Phone'+'\t'+'Tenth Score'+'\t'+'Twelvth Score'+'\n';
-	for (var i = 0; i < students.length; i++) {
-    	data=data+(i+1)+'\t'+students[i].collegeID+'\t'+students[i].rollNO+'\t'
-    		+students[i].first_name+'\t'+students[i].last_name+'\t'+students[i].email+'\t'
-    		+students[i].phone+'\t'+students[i].tenthMarks+'\t'+students[i].twelvthMarks+'\n';
+	for (var i = 0;i < students.length; i++) {
+    	data=data+students[i][0]+'\t'+students[i][1]+'\t'
+    		+students[i][2]+'\t'+students[i][3]+'\t'+students[i][4]+'\t'
+    		+students[i][5]+'\t'+students[i][6]+'\t'+students[i][7]+'\t'+students[i][8]
+    		+'\t'+students[i][9]+'\t'+students[i][10]+'\t'+students[i][11]+'\n';
  	}
-	fs.writeFile('studentsRecord.xls', data, (err) => {
-    	if (err) throw err;
-    	next();
- 		});
-	}).catch((e) => {
-		console.log(e);
-	});
-}, (req,res,next) => {
-		var file = __dirname+'/studentsRecord.xls';
-		res.download(file);
+ 	console.log(data);
+	writeFile('studentsRecord.xls',data)
+		.then(() => {
+			res.send();
+		})
+		.catch(() => {
+			console.log('Error');
+		});
+	
 });
 
+app.get('/exportFile', (req,res) => {
+	let file = __dirname+'/studentsRecord.xls';
+	res.download(file);
+});
 
 app.get('/logout', (req,res) => {
 	if(typeof req.session.email === 'undefined'){	
