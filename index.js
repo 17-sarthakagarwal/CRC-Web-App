@@ -158,8 +158,7 @@ app.post('/signup', (req,res,next) => {
   		from: 'troy@gmail.com',
   		to: req.email,
   		subject: 'Thank you for registering with CRC, Invertis University',
-  		text: `Dear ${req.first_name}! Your account was successfully created and you can use use your email - 
-  		${req.email} and password - ${req.password} to login to your profile. Thanks.`
+  		text: `Dear ${req.first_name}! Your account was successfully created. Thanks.`
 		};
 
 	transporter.sendMail(mailOptions, function(error, info){
@@ -325,12 +324,14 @@ app.get('/update', (req,res) => {
 });
 
 app.post('/update', (req,res) => {
+	let course = req.body.course;
 	let collegeID = req.body.cid;
 	let rollNO = req.body.roll;
 	let tenthMarks = Number(req.body.tenthMarks);
-	let twelvthMarks = req.body.twelvthMarks;
-	let btechMarks = req.body.btechmarks;
-	let backlogs = req.body.backlogs;
+	let twelvthMarks = Number(req.body.twelvthMarks);
+	let btechMarks = Number(req.body.btechmarks);
+	let backlogs = Number(req.body.backlogs);
+
 
 	if(tenthMarks<10){
 		tenthMarks = tenthMarks*9.5;
@@ -338,7 +339,7 @@ app.post('/update', (req,res) => {
 	
 	Student.findOneAndUpdate(
 		{email: req.session.email}, 
-		{$set:{collegeID,rollNO,tenthMarks,twelvthMarks,btechMarks,backlogs}}, 
+		{$set:{course,collegeID,rollNO,tenthMarks,twelvthMarks,btechMarks,backlogs}}, 
 		{new: true}, (err, doc) => {
     if(err){
         console.log("Something wrong while updating data!");
@@ -429,6 +430,56 @@ app.post('/addNotice', (req,res,next) => {
 		res.redirect('dashboard');
 });
 
+app.get('/addStudent',(req,res) => {
+	res.render('registration.hbs');
+});
+
+
+app.post('/registration', (req,res) => {
+	let first_name = req.body.firstname;
+	let last_name = req.body.lastname;
+	let email = req.body.email;
+	let uname = req.body.username;
+	let phone = req.body.mobile_no;
+	let type = req.body.user_type;
+	let password = req.body.password;
+	let gender = req.body.gender;
+	let course = req.body.course;
+	let collegeID = req.body.cid;
+	let rollNO = req.body.roll;
+	let tenthMarks = Number(req.body.tenthMarks);
+	let twelvthMarks = Number(req.body.twelvthMarks);
+	let btechMarks = Number(req.body.btechmarks);
+	let backlogs = Number(req.body.backlogs);
+
+	if(tenthMarks<10){
+		tenthMarks = tenthMarks*9.5;
+	}
+	var newStudent = new Student({
+		first_name,
+		last_name,
+		email,
+		uname,
+		phone,
+		type,
+		password,
+		gender,
+		course,
+		collegeID,
+		tenthMarks,
+		twelvthMarks,
+		btechMarks,
+		backlogs
+	});
+
+	newStudent.save().then((student) => {
+		console.log(student);
+		res.redirect('/dashboard');
+	}).catch((e) => {
+		console.log(e.code);
+	});
+
+});
 
 app.post('/exportFile', (req,res,next) => {
 	var students = req.body.fetchedData
@@ -439,7 +490,6 @@ app.post('/exportFile', (req,res,next) => {
     		+students[i][5]+'\t'+students[i][6]+'\t'+students[i][7]+'\t'+students[i][8]
     		+'\t'+students[i][9]+'\t'+students[i][10]+'\t'+students[i][11]+'\n';
  	}
- 	console.log(data);
 	writeFile('studentsRecord.xls',data)
 		.then(() => {
 			res.send();

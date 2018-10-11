@@ -52,6 +52,13 @@ var StudentSchema = new mongoose.Schema({
 		minLength:1,
 		trim: true
 	},
+	course:{
+		type:String,
+		required:true,
+		trim:true,
+		default:'Not set yet',
+		minLength:1
+	},
 	collegeID:{
 		type:String,
 		required:true,

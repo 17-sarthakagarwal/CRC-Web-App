@@ -2,6 +2,9 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta Http-Equiv="Cache-Control" Content="no-cache">
+    <meta Http-Equiv="Pragma" Content="no-cache">
+    <meta Http-Equiv="Expires" Content="0">
     <title>{{pageTitle}}</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap-3.3.7-dist/css/bootstrap.css"></li>
    
@@ -43,7 +46,7 @@ $(document).ready(function(){
    $('#filter').on('click', function() {
         var optionVal = $('#test').val();
         var backVal = $('#back').val();
-        $.post("https://crc-master.herokuapp.com/dashboard",
+        $.post("http://localhost:3000/dashboard",
             {
                 optionV : optionVal,
                 backV : backVal
@@ -55,8 +58,8 @@ $(document).ready(function(){
                 row += "<tr>";
                
                     row += '<td>' + i + '</td>'
-                        +'<td>' + data[i-1].rollNO + '</td>'
                         +'<td>' + data[i-1].collegeID + '</td>'
+                        +'<td>' + data[i-1].course + '</td>'
                         +'<td>' + data[i-1].first_name + '</td>'
                         +'<td>' + data[i-1].last_name + '</td>'
                         +'<td>' + data[i-1].gender + '</td>'
@@ -84,7 +87,7 @@ $(document).ready(function(){
         data.push(cols);
     });
 
-             $.post("https://crc-master.herokuapp.com/exportFile",
+             $.post("http://localhost:3000/exportFile",
                 {
                     fetchedData: data
                 },
@@ -95,7 +98,16 @@ $(document).ready(function(){
     });
 });
  </script>
- 
+ <script type="text/javascript">
+        function noBack()
+         {
+             window.history.forward()
+         }
+        noBack();
+        window.onload = noBack;
+        window.onpageshow = function(evt) { if (evt.persisted) noBack() }
+        window.onunload = function() { void (0) }
+    </script>
  
 
 </body>
