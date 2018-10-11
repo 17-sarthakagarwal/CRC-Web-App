@@ -71,108 +71,6 @@ app.get('/', (req,res) => {
 });
 
 
-app.get('/signup', (req,res) => {
-	if(typeof req.session.email !== "undefined"){
-		if(app.locals.type === 'Student'){
-			res.redirect('/profile');
-		}
-		else{
-			res.redirect('/dashboard');
-		}
-	}
-	
-	else{
-	res.render('signup',{
-		pageTitle:'Signup'
-	});
-}
-});
-
- 
-
-
-app.post('/signup', (req,res,next) => {
-	let first_name = req.body.firstname;
-	let last_name = req.body.lastname;
-	let email = req.body.email;
-	let uname = req.body.username;
-	let phone = req.body.mobile_no;
-	let type = req.body.user_type;
-	let password = req.body.password;
-	let gender = req.body.gender;
-	req.typeOfUser = type;
-	req.email = email;
-	req.first_name = first_name;
-	req.password = password;
-
-	if(type === 'Student'){
-		var newStudent = new Student({
-			first_name,
-			last_name,
-			email,
-			uname,
-			phone,
-			type,
-			password,
-			gender
-		});
-
-		newStudent.save().then((student) => {
-			//console.log('Student saved in db!!',JSON.stringify(student,undefined,3));
-			req.UID = student._id;
-			next();
-		}).catch((e) => {
-			console.log(e.code);
-		});
-	} // if ends for student
-	else{
-		var newAdmin = new Admin({
-			first_name,
-			last_name,
-			email,
-			uname,
-			phone,
-			type,
-			password,
-			gender
-		});
-
-		newAdmin.save().then((admin) => {
-			//console.log('Admin saved in db!!',JSON.stringify(admin,undefined,3));
-			next();
-		}).catch((e) => {
-			console.log(e);
-		});
-	}
-
-}, (req,res,next) => {	
-	var transporter = nodemailer.createTransport({
-  		service: 'gmail',
-  		auth: {
-    	user: 'troy0870@gmail.com',
-    	pass: process.env.Jello
-  		}
-		});
-
-	var mailOptions = {
-  		from: 'troy@gmail.com',
-  		to: req.email,
-  		subject: 'Thank you for registering with CRC, Invertis University',
-  		text: `Dear ${req.first_name}! Your account was successfully created. Thanks.`
-		};
-
-	transporter.sendMail(mailOptions, function(error, info){
-  		if (error) {
-    		console.log(error);
-  	} 
-	});
-
-	next();
-}, (req,res,next) => {	
-		res.redirect('login');
-	}
-);
-
 app.get('/login', (req,res) => {
 	if(typeof req.session.email !== "undefined"){
 		if(app.locals.type === 'Student'){
@@ -223,31 +121,6 @@ app.post('/login', (req,res) => {	//POST /login handler to redirect the request 
 	.catch((e) => console.log('Error', e))
 	);
 					//profile page after setting up session	
-});
-
-
-
-app.post('/register/:UID', (req,res) => {
-	let UID = req.params.UID;
-	let collegeID = req.body.cid;
-	let rollNO = req.body.roll;
-	let tenthMarks = Number(req.body.tenthMarks);
-	let twelvthMarks = req.body.twelvthMarks;
-
-	if(tenthMarks<10){
-		tenthMarks = tenthMarks*9.5;
-	}
-	
-	Student.findOneAndUpdate(
-		{_id: UID}, 
-		{$set:{collegeID,rollNO,tenthMarks,twelvthMarks}}, 
-		{new: true}, (err, doc) => {
-    if(err){
-        console.log("Something wrong while updating data!");
-    }
-    res.redirect('/');
-});
-
 });
 
 app.get('/profile', (req,res) => {					//GET /profile will be rendered with profile
@@ -312,43 +185,6 @@ app.post('/dashboard', (req,res,next) => {
 	res.send(f_students);
 });
 
-
-app.get('/update', (req,res) => {
-	if(typeof req.session.email === 'undefined'){	//or will be redirected if not in session
-		res.redirect('/login');
-	}
-	else{
-		res.render('update');	
-	}
-	
-});
-
-app.post('/update', (req,res) => {
-	let course = req.body.course;
-	let collegeID = req.body.cid;
-	let rollNO = req.body.roll;
-	let tenthMarks = Number(req.body.tenthMarks);
-	let twelvthMarks = Number(req.body.twelvthMarks);
-	let btechMarks = Number(req.body.btechmarks);
-	let backlogs = Number(req.body.backlogs);
-
-
-	if(tenthMarks<10){
-		tenthMarks = tenthMarks*9.5;
-	}
-	
-	Student.findOneAndUpdate(
-		{email: req.session.email}, 
-		{$set:{course,collegeID,rollNO,tenthMarks,twelvthMarks,btechMarks,backlogs}}, 
-		{new: true}, (err, doc) => {
-    if(err){
-        console.log("Something wrong while updating data!");
-    }
-    res.redirect('update');
-});
-});
-
-
 app.get('/notices', (req,res) => {
 	if(typeof req.session.email === 'undefined'){	
 		res.redirect('/login');
@@ -364,7 +200,6 @@ app.get('/notices', (req,res) => {
 
 	}
 });
-
 
 app.get('/addNotice', (req,res) => {
 	if(typeof req.session.email === 'undefined'){	
@@ -393,7 +228,6 @@ app.post('/addNotice', (req,res,next) => {
 	});
 
 	notice.save().then((notice) =>{
-		//console.log(JSON.stringify(notice,undefined,3));
 		next();
 	}).catch((e) => {
 		console.log(e);
@@ -473,7 +307,6 @@ app.post('/registration', (req,res) => {
 	});
 
 	newStudent.save().then((student) => {
-		console.log(student);
 		res.redirect('/dashboard');
 	}).catch((e) => {
 		console.log(e.code);

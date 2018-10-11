@@ -39,8 +39,18 @@ a{
 }
 
 .width-buttons{
+    margin-top: 80px;
     width: 50%;
     display: inline-block;
+}
+.btn{
+    padding: 20px 0px 20px 0px;
+    width:50%;
+    
+}
+.mybtn {
+    margin-top: 80px;
+    padding: 30px 30px;
 }
 .welcome-message{
     color: #fff;
