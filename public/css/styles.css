@@ -39,19 +39,11 @@ a{
 }
 
 .width-buttons{
-    margin-top: 80px;
-    width: 50%;
-    display: inline-block;
+    padding: 50px;
+    width:30%;
+    margin-left: 30%;
 }
-.btn{
-    padding: 20px 0px 20px 0px;
-    width:50%;
-    
-}
-.mybtn {
-    margin-top: 80px;
-    padding: 30px 30px;
-}
+
 .welcome-message{
     color: #fff;
     font-family: 'Concert One', cursive;
