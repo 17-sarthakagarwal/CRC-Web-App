@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CRC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Client Signup Form template Responsive, Login form web template,Flat Pricing tables,Flat Drop downs  Sign up Web Templates, Flat Web Templates, Login sign up Responsive web template, SmartPhone Compatible web template, free webdesigns for Nokia, Samsung, LG, SonyEricsson, Motorola web design" />
+    <script type="application/x-javascript">
+        addEventListener("load", function () {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+
+        
+// selection year b/w start year and end year
+function yearCheckerValidator() {
+
+    var startyear = document.getElementById("startyear").value;
+    var endyear = document.getElementById("endyear").value;
+    
+
+    if (startyear > endyear) {
+        alert("Course end year not less than start year");
+        return false;
+    } else {
+        return true;
+    }
+}
+    </script>
+
+
+    <link rel="stylesheet" href="css/jquery-ui.css">
+    <script src="bower_components\jquery\dist\jquery.js"></script>
+    <script src="bower_components\jquery-ui\jquery-ui.js"></script>
+    <!--Valdation Form -->
+
+    <!--Course call here -->
+    <script type="text/javascript" src="courses_names.js"></script>
+    <!--Course call End-->
+
+    <script src="bower_components\jquery-validation\dist\jquery.validate.js"></script>
+    <script src="error/registration-error.js"></script>
+    <!--End Validation-->
+
+
+    <!-- Custom Theme files -->
+    <link href="css/registration-style.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- //Custom Theme files -->
+    <!-- web font -->
+    <link href="//fonts.googleapis.com/css?family=Old+Standard+TT:400,400i,700" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800" rel="stylesheet" type="text/css">
+    <!--web font-->
+    <!-- //web font -->
+</head>
+
+<body class="img-back">
+
+    <!-- block -->
+    <div class="block ">
+        <h1><span class="reg-page">R</span>egistration <span>F</span>orm</h1>
+        <div class="block-box ">
+            <div class="signup-top1">
+                <h2>Welcome to CRC</h2>
+                <p>We are happy to here </p>
+            </div>
+            <div class="form-block">
+                <form action="#" method="post" id="signupForm">
+                    <h3>Step 1 :</h3>
+                    <div class="form-details">
+
+                        <a class="rowval">
+                            <input type="text" class="fname" name="firstname" placeholder="First Name">
+                        </a>
+
+                        <a class="rowval">
+                            <input type="text" class="fname" name="lastname" placeholder="Last Name">
+                        </a>
+
+                        <a class="rowval">
+                            <input type="email" class="email btn-input" name="email" placeholder="Email">
+                        </a>
+
+                    </div>
+
+                    <h3>Step 2 :</h3>
+
+                    <div class="form-details">
+
+                        <a class="rowval">
+                            <input type="text" class="cname" name="username" placeholder="User Name">
+                        </a>
+
+                        <a class="rowval">
+                            <input type="text" id="datepicker" class="cname" name="dob" value="" placeholder="Date Of Birth">
+                        </a>
+
+                        <a class="rowval">
+                            <input type="password" name="password" id="password" placeholder="Password">
+                        </a>
+
+                        <a class="rowval">
+                            <input type="password" class="btn-input" name="conform_password" placeholder="Confirm Password">
+                        </a>
+
+                    </div>
+
+                    <h3>Step 3 :</h3>
+
+                    <div class="form-details form-row">
+
+                        <a class="rowval">
+                            <select name="gender" id="gender-type" class="fname">
+                                <option value="" selected disabled>Select Gender</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </a>
+
+                        <a class="rowval">
+                            <input type="number" class="cname" name="mobile_no" placeholder="Mobile number">
+                        </a>
+
+                        <a class="rowval">
+                            <input type="text" class="btn-input cname" name="address" placeholder="Your Address">
+                        </a>
+
+                    </div>
+                    <h3>Step 4 :</h3>
+
+                    <div class="form-details form-row">
+
+
+
+                        <a class="rowval">
+                            <input type="text" class="cname" name="highschool_marks" placeholder="10th Marks/CGPA">
+                        </a>
+
+                        <a class="rowval">
+                            <input type="text" class="cname" name="Intermediate_marks" placeholder="12th Marks">
+                        </a>
+
+                        <a class="rowval">
+                            <select name="course" id="course" class="fname">
+                            </select>
+                        </a>
+
+                        <a class="rowval">
+                            <select name="branch" id="branch" class="fname_more" value="" onchange="myFunction()">
+                            </select>
+                        </a>
+
+
+                        <div class="rowval">
+
+                            <table>
+                                <tr>
+
+                                    <a class="rowval">
+                                        <select name="startyear" id="startyear" class="fname" value="">
+                                        </select>
+                                    </a>
+
+                                    <a class="rowval">
+                                        <select name="endyear" id="endyear" class="fname_more" value="" >
+                                        </select>
+                                    </a>
+
+                                </tr>
+                            </table>
+
+
+                            <a class="rowval">
+                                <input type="text" class="cname" name="College_id" placeholder="College Id">
+                            </a>
+
+                            <a class="rowval">
+                                <input type="number" class="cname" name="enroll_no" placeholder="Enrollment No">
+                            </a>
+
+                            <a class="rowval">
+                                <input type="number" class="cname" name="backlogs" placeholder="Backlogs">
+                            </a>
+
+                        </div>
+
+                        <input type="submit" value="SUBMIT" onclick="yearCheckerValidator()">
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- //block -->
+    <!-- copyright -->
+    <div class="crc-copyright">
+        <p>© 2018 CRC Signup Form. All rights reserved | </p>
+    </div>
+    <!-- //copyright -->
+
+
+
+</body>
+
+</html>
