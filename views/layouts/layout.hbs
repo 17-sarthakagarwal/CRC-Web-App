@@ -43,7 +43,7 @@ $(document).ready(function(){
    $('#filter').on('click', function() {
         var optionVal = $('#test').val();
         var backVal = $('#back').val();
-        $.post("https:/crc-master.herokuapp.com/dashboard",
+        $.post("https://crc-master.herokuapp.com/dashboard",
             {
                 optionV : optionVal,
                 backV : backVal
@@ -84,7 +84,7 @@ $(document).ready(function(){
         data.push(cols);
     });
 
-             $.post("https:/crc-master.herokuapp.com/exportFile",
+             $.post("https://crc-master.herokuapp.com/exportFile",
                 {
                     fetchedData: data
                 },
