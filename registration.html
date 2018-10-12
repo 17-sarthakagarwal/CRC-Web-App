@@ -15,21 +15,21 @@
             window.scrollTo(0, 1);
         }
 
-        
-// selection year b/w start year and end year
-function yearCheckerValidator() {
 
-    var startyear = document.getElementById("startyear").value;
-    var endyear = document.getElementById("endyear").value;
-    
+        // selection year b/w start year and end year
+        function yearCheckerValidator() {
 
-    if (startyear > endyear) {
-        alert("Course end year not less than start year");
-        return false;
-    } else {
-        return true;
-    }
-}
+            var startyear = document.getElementById("startyear").value;
+            var endyear = document.getElementById("endyear").value;
+
+
+            if (startyear > endyear) {
+                alert("Course end year not less than start year");
+                return false;
+            } else {
+                return true;
+            }
+        }
     </script>
 
 
@@ -39,7 +39,7 @@ function yearCheckerValidator() {
     <!--Valdation Form -->
 
     <!--Course call here -->
-    <script type="text/javascript" src="courses_names.js"></script>
+    <script type="text/javascript" src="js/courses_names.js"></script>
     <!--Course call End-->
 
     <script src="bower_components\jquery-validation\dist\jquery.validate.js"></script>
@@ -166,7 +166,7 @@ function yearCheckerValidator() {
                                     </a>
 
                                     <a class="rowval">
-                                        <select name="endyear" id="endyear" class="fname_more" value="" >
+                                        <select name="endyear" id="endyear" class="fname_more" value="">
                                         </select>
                                     </a>
 
