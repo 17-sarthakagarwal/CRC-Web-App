@@ -13,7 +13,7 @@ body {
     background-size: cover;
     
     
-
+ 
 }
 
 
@@ -126,22 +126,7 @@ h1 .reg-page {
     transition: 0.5s all;
 }
 
-.form-block .fname_more {
-    width: 44%;
-    color: #fff;
-    background: none;
-    outline: none;
-    font-size: .9em;
-    padding: .6em 1em;
-    margin-bottom: 1em;
-    
-    border: solid 1px #bfbfbf;
-    -webkit-appearance: none;
-    font-family: 'Open Sans', sans-serif;
-    -webkit-transition: 0.5s all;
-    -moz-transition: 0.5s all;
-    transition: 0.5s all;
-}
+
 
 .form-block option {
     width: 93%;
@@ -248,7 +233,6 @@ input.btn-input {
 
     .form-block .cname,
     .form-block .fname,
-    .form-block .fname_more,
     .form-block input[type="email"],
     .form-block input[type="password"] {
         width: 91%;
@@ -343,7 +327,6 @@ input.btn-input {
 
     .form-block .cname,
     .form-block .fname,
-    .form-block .fname_more,
     .form-block input[type="email"],
     .form-block input[type="password"] {
         width: 90%;
@@ -399,7 +382,6 @@ input.btn-input {
 
     .form-block .cname,
     .form-block .fname,
-    .form-block .fname_more,
     .form-block input[type="email"],
     .form-block input[type="password"] {
         width: 88%;
@@ -440,7 +422,6 @@ input.btn-input {
 
     .form-block .cname,
     .form-block .fname,
-    .form-block .fname_more,
     .form-block input[type="email"],
     .form-block input[type="password"] {
         width: 87%;
