@@ -1,13 +1,16 @@
 {
-  "name": "bower",
-  "description": "This is all dependencies contain file",
-  "main": "bower",
+  "name": "crc-web-app",
+  "description": "This project is for the development of the CRC Web Application as a part of the Final Year Project",
+  "main": "index.js",
   "authors": [
-    "sweet kumar"
+    "Priyanka Rawat",
+    "Nutan Gupta",
+    "Tuhin Roy",
+    "Sweet Kumar",
+    "Sarthak Agarwal"
   ],
-  "license": "MIT",
-  "homepage": "index.html",
-  "private": true,
+  "license": "ISC",
+  "homepage": "",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -16,10 +19,10 @@
     "tests"
   ],
   "dependencies": {
-    "fontawesome": "^5.3.1",
-    "jquery": "^3.3.1",
+    "bootstrap": "3.3.7",
+    "font-awesome": "fontawesome#4.7.0",
     "jquery-ui": "^1.12.1",
-    "jquery-validation": "^1.18.0",
-    
+    "jquery": "^3.3.1",
+    "jquery-validation": "^1.18.0"
   }
 }
