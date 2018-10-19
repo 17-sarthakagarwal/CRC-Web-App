@@ -171,6 +171,11 @@ $(function () {
     for (i = new Date().getFullYear(); i > 1900; i--) {
 
         $('#startyear').append($('<option />').val(i).html(i));
+        
+    }
+
+    for (i = new Date().getFullYear()+10; i > 1900; i--) {
+
         $('#endyear').append($('<option />').val(i).html(i));
     }
     //end year here 
