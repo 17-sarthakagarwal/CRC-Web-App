@@ -17,6 +17,10 @@ body {
 a{
 	color: #fff;
 }
+.cover-dashboard{
+    width: 100%;
+    background-color: grey;
+}
 .nobr{
     white-space: nowrap;
 }

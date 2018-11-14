@@ -5,13 +5,10 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const app = express();
 var flash = require('connect-flash');
-/*var hbs =  require('hbs');
-*/const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3000;
 const path = require('path');
 const fs = require('fs');
-/*const student = require('./routes/students');
-const admin = require('./routes/admin');
-*/const nodemailer = require('nodemailer');
+const nodemailer = require('nodemailer');
 const bcrypt = require('bcryptjs');
 var {mongoose} = require('./db/mongoose');
 var {Student} = require('./models/studentModel');
@@ -21,21 +18,9 @@ const hbs = require('express-handlebars');
 const util = require('util');
 const writeFile = util.promisify(fs.writeFile);
 
+const AuthController = require('./controllers/AuthController');
+
 require('dotenv').config();
-/*app.engine('.hbs', exphbs({
-  defaultLayout: 'layout',	
-  extname: '.hbs',
-  helpers: require('./config/handlebars-helpers') 
-}));
-app.set('view engine', '.hbs');*/
-
-
-
-
-/*hbs.registerHelper('ifEquals', (arg1, arg2, options) => {
-    return (arg1 == arg2) ? options.fn(this) : options.inverse(this);
-});*/
-
 
 app.use(express.static(path.join(__dirname,'/public')));
 app.use(bodyParser.json());
@@ -57,22 +42,22 @@ app.engine( 'hbs', hbs( {
 } ) );
 
 app.set( 'view engine', 'hbs' );
-/*hbs.registerPartials(path.join(__dirname,'/views/partials'));
-*//*app.engine('.hbs', expressHbs({defaultLayout: 'layout', extname: '.hbs'}));
-*/app.use((req, res, next) => {				//Middleware to pass the session object to the front-end
+
+
+app.use((req, res, next) => {				//Middleware to pass the session object to the front-end
     app.locals.session = req.session;
     next();
   });
 
-  app.get('/flash', function(req, res){
-	// Set a flash message by passing the key, followed by the value, to req.flash().
-	req.flash('info', 'Flash is back!')
-	res.redirect('/');
-  });
+  
+
+app.use(function(req, res, next) {
+	res.set('Cache-Control', 'no-cache, private, no-store, must-revalidate, max-stale=0, post-check=0, pre-check=0');
+	next();
+});
 
 
 app.get('/', (req,res) => {
-	req.flash('info','Welcome!!');
 	res.render('index',{
 		pageTitle:'Welcome to CRC, Invertis University'
 	});
@@ -129,7 +114,7 @@ app.post('/login', (req,res) => {	//POST /login handler to redirect the request 
 	})
 	.catch((e) => console.log('Error', e))
 	);
-					//profile page after setting up session	
+					
 });
 
 app.get('/profile', (req,res) => {					//GET /profile will be rendered with profile
@@ -179,8 +164,11 @@ app.get('/dashboard', (req,res) => {
 
 app.post('/dashboard', (req,res,next) => {
 	let criteriaVal = req.body.optionV;
-	let back = req.body.backV;
-	Student.find({ $and: [ { tenthMarks: { $gte: criteriaVal}}, { twelvthMarks: { $gte: criteriaVal}}, { btechMarks: { $gte: criteriaVal}}, { backlogs: { $lte: back}} ]})
+	let start = req.body.start;
+	let end = req.body.end;
+	let branch = req.body.branch;
+	
+	Student.find({ $and: [ { tenthMarks: { $gte: criteriaVal}}, { twelvthMarks: { $gte: criteriaVal}}, { btechMarks: { $gte: criteriaVal}}, { startyear: { $eq: start}}, { endyear: { $eq: end}}, { course: { $eq: branch}} ]})
 
 		.then((students) => {
 			req.students = students;
@@ -226,6 +214,7 @@ app.post('/addNotice', (req,res,next) => {
 	let receiver = req.body.target;
 	req.title = title;
 	req.description = description;
+
 	req.date = due_date;
 
 	var notice = new Notice({
@@ -274,7 +263,18 @@ app.post('/addNotice', (req,res,next) => {
 });
 
 app.get('/addStudent',(req,res) => {
-	res.render('registration.hbs');
+	if(typeof req.session.email === 'undefined') {	
+		res.redirect('/login');
+	}
+	else {
+
+		if(req.session.email === 'v@gmail.com') 
+				res.render('registration.hbs');
+		
+		else 
+			res.render('profile.hbs');
+		
+	}
 });
 
 
@@ -286,7 +286,6 @@ app.post('/registration', (req,res,next) => {
 	let password = req.body.password;
 	let gender = req.body.gender;
 	let phone = req.body.mobile_no;
-	let address = req.body.address;
 	let tenthMarks = Number(req.body.highschool_marks);
 	let twelvthMarks = Number(req.body.Intermediate_marks);
 	let btechMarks = Number(req.body.btech_marks);
@@ -294,23 +293,48 @@ app.post('/registration', (req,res,next) => {
 	let startyear = req.body.startyear;
 	let endyear = req.body.endyear;
 	let collegeID = req.body.College_id;
-	let enrollNO = req.body.enroll_no;
-	let backlogs = Number(req.body.backlogs);
+	let training_company = req.body.training_company;
+	let training_location = req.body.training_location;
+	let training_duration = req.body.training_duration;
+	let native_place = req.body.native_place;
 	req.email = email;
 	req.first_name = first_name;
+
+	dob = dob.split('/');
+	dob = dob[1]+'/'+dob[0]+'/'+dob[2];
+	console.log(first_name+" "+last_name+" "+training_company+" "+dob+" "+collegeID+" "+course+" ");
 
 	if(tenthMarks<10){
 		tenthMarks = tenthMarks*9.5;
 	}
 	var newStudent = new Student({
-		first_name, last_name, email, dob, password,gender, phone, address, tenthMarks,twelvthMarks, btechMarks,
-		course, startyear, endyear, collegeID, enrollNO, backlogs
+		first_name, 
+		last_name, 
+		email, 
+		dob, 
+		password, 
+		gender, 
+		phone, 
+		tenthMarks,
+		btechMarks,
+		twelvthMarks, 
+		course, 
+		collegeID,
+		startyear, 
+		endyear,
+		training_company, 
+		training_duration, 
+		training_location,
+		native_place
 	});
 
+	console.log('Student object created!! ', newStudent);
+
 	newStudent.save().then((student) => {
+		console.log('saving!!');
 		next();
 	}).catch((e) => {
-		console.log(e.code);
+		console.log('Error in saving!!'+e);
 	});
 }, (req,res,next) => {
 	var transporter = nodemailer.createTransport({
@@ -322,11 +346,18 @@ app.post('/registration', (req,res,next) => {
   	});
 
   	var mailOptions = {
-		from: 'troy@gmail.com',
+		from: 'troy0870@gmail.com',
 		to: req.email,
-		subject: 'Thank you for registering with the CRC Invertis Department',
-		text: `Hey ${req.first_name}. Your account was successfully created. You may now login at 
-				https://crc-master.herokuapp.com using the same credentials submitted earlier to access your profile.`
+		cc: ['troy0870@gmail.com','sweetkumar26.95@gmail.com','nutan110125@gmail.com','17.sarthakagarwal@gmail.com','prerawat005@gmail.com','anil.p@invertis.org','varun.s@invertis.org'],
+		subject: 'Thank you for registering with the CRC Department, Invertis University',
+		text: `Hey ${req.email}!
+
+			   				Kindly note that your account was successfully created/updated at our end.
+
+			   				PS - This is an auto-generated email. 
+
+			   				Thanks,
+			   				Tuhin`
  	 };
 
   	transporter.sendMail(mailOptions, function(error, info){
@@ -334,8 +365,8 @@ app.post('/registration', (req,res,next) => {
 	  		console.log(error);
 		}
 		res.redirect('/dashboard'); 
-  	});
-});
+	});
+});  
 
 app.post('/exportFile', (req,res,next) => {
 	var students = req.body.fetchedData
@@ -361,15 +392,7 @@ app.get('/exportFile', (req,res) => {
 	res.download(file);
 });
 
-app.get('/logout', (req,res) => {
-	if(typeof req.session.email === 'undefined'){	
-		res.redirect('/login');
-	}
-	else{
-		req.session.destroy();
-		res.redirect('/');
-	}
-});
+app.get('/logout', AuthController.logout);
 
 
 app.listen(PORT, () => {

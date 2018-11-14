@@ -1,7 +1,7 @@
 <br/>
-<div class="col-lg-10 col-lg-offset-3">
+<div class="col-lg-12>
 <div class="welcome-message">
-  <h3>Welcome {{ Uname }}!</h3>
+  <h3 style="color: white;">Welcome {{ Uname }}!</h3>
 </div>
 
 <hr/>
@@ -35,10 +35,6 @@
   			<td>{{collegeID}}</td>
   		</tr>
   		<tr>
-  			<td>Roll No</td>
-  			<td>{{rollNO}}</td>
-  		</tr>
-  		<tr>
   			<td>Tenth Score</td>
   			<td>{{tenthMarks}}</td>
   		</tr>
@@ -50,9 +46,38 @@
         <td>B.Tech. Score</td>
         <td>{{btechMarks}}</td>
       </tr>
+			<tr>
+        <td>Training Company</td>
+        <td>{{training_company}}</td>
+      </tr>
+			<tr>
+        <td>Training Location</td>
+        <td>{{training_location}}</td>
+      </tr>
+			<tr>
+        <td>Training Duration</td>
+        <td>{{training_duration}}</td>
+      </tr>
+			<tr>
+        <td>Native Place</td>
+        <td>{{native_place}}</td>
+      </tr>
       <tr>
         <td>Backlogs</td>
         <td>{{backlogs}}</td>
+      </tr>
+				<tr>
+        <td>Email</td>
+        <td>{{email}}</td>
+      </tr>
+				<tr>
+        <td>Mobile No.</td>
+        <td>{{phone}}</td>
+      </tr>
+			</tr>
+				<tr>
+        <td>Date of Birth</td>
+        <td>{{dob}}</td>
       </tr>
   	{{/each}}		
     </tbody>

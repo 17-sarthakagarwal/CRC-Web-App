@@ -1,7 +1,7 @@
 
 <head>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{pageTitle}}</title>
     <link rel="stylesheet" type="text/css" href="bower_components\bootstrap\dist\css\bootstrap.css"></li>
    
@@ -40,7 +40,7 @@
 
 {{> header }}
 
-<div class="container">
+<div class="container-fluid">
 
     {{{body}}}
 
@@ -57,11 +57,17 @@ $(document).ready(function(){
    
    $('#filter').on('click', function() {
         var optionVal = $('#test').val();
-        var backVal = $('#back').val();
+        var startyear = $('#startyear').val();
+        var endyear = $('#endyear').val();
+        var branch = $('#branch').val();
+     
         $.post("https://crc-master.herokuapp.com/dashboard",
             {
                 optionV : optionVal,
-                backV : backVal
+                start : startyear,
+                end : endyear,
+                branch: branch
+               
             },
         function(data, status){
             $('#tbody').empty();
@@ -70,17 +76,19 @@ $(document).ready(function(){
                 row += "<tr>";
                
                     row += '<td>' + i + '</td>'
-                        +'<td>' + data[i-1].collegeID + '</td>'
-                        +'<td>' + data[i-1].course + '</td>'
                         +'<td>' + data[i-1].first_name + '</td>'
                         +'<td>' + data[i-1].last_name + '</td>'
-                        +'<td>' + data[i-1].gender + '</td>'
-                        +'<td>' + data[i-1].email + '</td>'
+                        +'<td>' + data[i-1].collegeID + '</td>'
+                        +'<td>' + data[i-1].dob + '</td>'
                         +'<td>' + data[i-1].phone + '</td>'
+                        +'<td>' + data[i-1].email + '</td>'
                         +'<td>' + data[i-1].tenthMarks + '</td>'
                         +'<td>' + data[i-1].twelvthMarks + '</td>'
                         +'<td>' + data[i-1].btechMarks + '</td>'
-                        +'<td>' + data[i-1].backlogs + '</td>';
+                        +'<td>' + data[i-1].training_company + '</td>'
+                        +'<td>' + data[i-1].training_location + '</td>'
+                        +'<td>' + data[i-1].training_duration + '</td>';
+                     
             
                 row += "</tr>";
             }
@@ -109,6 +117,8 @@ $(document).ready(function(){
         
     });
 });
+
+  
  </script>
   <script type="application/x-javascript">
         addEventListener("load", function () {

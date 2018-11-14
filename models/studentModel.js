@@ -25,7 +25,6 @@ var StudentSchema = new mongoose.Schema({
 		type:String,
 		required: true,
 		minLength:1,
-		unique:true,
 		trim: true
 	},
 	password:{
@@ -46,20 +45,7 @@ var StudentSchema = new mongoose.Schema({
 		trim:true,
 		minLength:1,
 	},
-	address:{
-		type:String,
-		required: true,
-		minLength:1,
-		trim: true
-	},
 	tenthMarks:{
-		type:Number,
-		required:true,
-		default: 0,
-		trim:true,
-		minLength:1
-	},
-	twelvthMarks:{
 		type:Number,
 		required:true,
 		default: 0,
@@ -101,13 +87,6 @@ var StudentSchema = new mongoose.Schema({
 		default:'Not set yet',
 		minLength:1
 	},
-	enrollNO:{
-		type:Number,
-		required:true,
-		default:0,
-		trim:true,
-		minLength:1
-	},
 	startyear:{
 		type:String,
 		required:true,
@@ -122,11 +101,29 @@ var StudentSchema = new mongoose.Schema({
 		default:'Not set yet',
 		minLength:1
 	},
-	backlogs:{
+	training_company:{
+		type:String,
+		required:true,
+		trim:true,
+		default:'Not set yet',
+		minLength:1
+	},
+	training_location:{
+		type:String,
+		required:true,
+		trim:true,
+		default:'Not set yet',
+		minLength:1
+	},
+	training_duration:{
 		type:Number,
 		required:true,
-		default: 0,
+	},
+	native_place:{
+		type:String,
+		required:true,
 		trim:true,
+		default:'Not set yet',
 		minLength:1
 	}
 });

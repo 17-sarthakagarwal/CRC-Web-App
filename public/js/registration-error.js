@@ -36,7 +36,15 @@ $(document).ready(function () {
             dob: {
                 required: true
             },
-
+            highschool_marks : {
+                required: true
+            },
+            Intermediate_marks : {
+                required: true
+            },
+            btech_marks : {
+                required: true
+            },
             email: {
                 required: true,
                 email: true
@@ -72,6 +80,22 @@ $(document).ready(function () {
                 required: true
             },
             endyear: {
+                required: true
+            },
+            training_company: {
+                required: true
+            },
+            training_location: {
+                required: true
+            },
+            training_duration: {
+                required: true
+            },
+            native_place: {
+                required: true
+            },
+
+            resume :{
                 required: true
             }
 
@@ -138,6 +162,30 @@ $(document).ready(function () {
             },
             endyear: {
                 required: "Please select your course end year"
+            },
+            training_company: {
+                required: "Please enter the Training Company"
+            },
+            training_location: {
+                required: "Please enter the Training Location"
+            },
+            training_duration: {
+                required: "Please enter the Training Duration"
+            },
+            native_place: {
+                required: "Please enter the native place"
+            },
+            highschool_marks : {
+                 required: "Please enter the High School Marks"
+            },
+            Intermediate_marks : {
+                 required: "Please enter the Intermediate Marks"
+            },
+            btech_marks : {
+                 required: "Please enter the B.Tech Marks"
+            },
+            resume : {
+                required: "Please upload your resume"
             }
         },
         errorPlacement: function (error, element) {
@@ -181,6 +229,7 @@ $(function () {
     //end year here 
 
 });
+
 
 
 
