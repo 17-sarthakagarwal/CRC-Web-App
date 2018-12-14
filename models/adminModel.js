@@ -21,12 +21,6 @@ var AdminSchema = new mongoose.Schema({
 		unique:true,
 		trim: true
 	},
-	uname:{
-		type: String,
-		required: true,
-		minLength: 1,
-		trim: true
-	},
 	phone:{
 		type:Number,
 		required:true,

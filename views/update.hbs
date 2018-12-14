@@ -4,6 +4,13 @@
         <h2>Update Details</h2>
         <form action="/update" method="POST">
 
+             <div class=" block-group">
+                <label>Course:</label>
+                <div class="block">
+                    <i class="fa fa-info"></i>
+                    <input type="text"  placeholder="Course" name="course" required="required" />
+                </div>
+            </div>
             <div class=" block-group">
                 <label>College ID:</label>
                 <div class="block">
@@ -19,17 +26,31 @@
                 </div>
             </div>
             <div class=" block-group">
-                <label>Tenth Score (CGPA/%):</label>
+                <label>Tenth  (CGPA/%):</label>
                 <div class="block">
                     <i class="fa fa-key"></i>
-                    <input type="number"  placeholder="Tenth Score (CGPA/%)" name="tenthMarks" required="required" />
+                    <input type="number"  placeholder="Tenth Score (CGPA/%)" name="tenthMarks" step=".01" required="required" />
                 </div>
             </div>
             <div class=" block-group">
-                <label>Twelvth Marks:</label>
+                <label>Twelvth %:</label>
                 <div class="block">
                     <i class="fa fa-key"></i>
-                    <input type="number"  placeholder="Twelvth Marks" name="twelvthMarks" required="required" />
+                    <input type="number"  placeholder="Twelvth Marks" name="twelvthMarks" step=".01" required="required" />
+                </div>
+            </div>
+            <div class=" block-group">
+                <label>B.Tech %:</label>
+                <div class="block">
+                    <i class="fa fa-key"></i>
+                    <input type="number"  placeholder="B.Tech %" name="btechmarks" step=".01" required="required" />
+                </div>
+            </div>
+            <div class=" block-group">
+                <label>Backlogs:</label>
+                <div class="block">
+                    <i class="fa fa-key"></i>
+                    <input type="number"  placeholder="Backlogs" name="backlogs" required="required" />
                 </div>
             </div>
             <button type="submit">Update</button>

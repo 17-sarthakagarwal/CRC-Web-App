@@ -21,24 +21,11 @@ var StudentSchema = new mongoose.Schema({
 		unique:true,
 		trim: true
 	},
-	uname:{
-		type: String,
-		required: true,
-		minLength: 1,
-		trim: true
-	},
-	phone:{
-		type:Number,
-		required:true,
-		trim:true,
-		minLength:1,
-	},
-	type:{
+	dob:{
 		type:String,
 		required: true,
 		minLength:1,
-		trim: true,
-		default: 'Student'
+		trim: true
 	},
 	password:{
 		type:String,
@@ -52,21 +39,20 @@ var StudentSchema = new mongoose.Schema({
 		minLength:1,
 		trim: true
 	},
-	collegeID:{
-		type:String,
-		required:true,
-		trim:true,
-		default:'Not set yet',
-		minLength:1
-	},
-	rollNO:{
+	phone:{
 		type:Number,
 		required:true,
-		default:0,
+		trim:true,
+		minLength:1,
+	},
+	tenthMarks:{
+		type:Number,
+		required:true,
+		default: 0,
 		trim:true,
 		minLength:1
 	},
-	tenthMarks:{
+	btechMarks:{
 		type:Number,
 		required:true,
 		default: 0,
@@ -78,6 +64,66 @@ var StudentSchema = new mongoose.Schema({
 		required:true,
 		default: 0,
 		trim:true,
+		minLength:1
+	},
+	type:{
+		type:String,
+		required:true,
+		default:'Student',
+		trim:true,
+		minLength:1
+	},
+	course:{
+		type:String,
+		required:true,
+		trim:true,
+		default:'Not set yet',
+		minLength:1
+	},
+	collegeID:{
+		type:String,
+		required:true,
+		trim:true,
+		default:'Not set yet',
+		minLength:1
+	},
+	startyear:{
+		type:String,
+		required:true,
+		trim:true,
+		default:'Not set yet',
+		minLength:1
+	},
+	endyear:{
+		type:String,
+		required:true,
+		trim:true,
+		default:'Not set yet',
+		minLength:1
+	},
+	training_company:{
+		type:String,
+		required:true,
+		trim:true,
+		default:'Not set yet',
+		minLength:1
+	},
+	training_location:{
+		type:String,
+		required:true,
+		trim:true,
+		default:'Not set yet',
+		minLength:1
+	},
+	training_duration:{
+		type:Number,
+		required:true,
+	},
+	native_place:{
+		type:String,
+		required:true,
+		trim:true,
+		default:'Not set yet',
 		minLength:1
 	}
 });
