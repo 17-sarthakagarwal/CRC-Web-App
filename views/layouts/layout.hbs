@@ -28,6 +28,10 @@
     
     <script src="/js/courses_names.js"></script>
     <script src="/js/registration-error.js"></script>
+
+    <!-- jobs validation here -->
+    <script src="/js/job-error.js"></script>
+
     <link rel="stylesheet" href="css/jquery-ui.css">
          <script src="bower_components\jquery-ui\jquery-ui.js"></script>
      
@@ -54,6 +58,8 @@
  <script type="text/javascript" src="bower_components\bootstrap\dist\js\bootstrap.js"></script>
  <script>
 $(document).ready(function(){
+
+   
    
    $('#filter').on('click', function() {
         var optionVal = $('#test').val();
@@ -61,7 +67,7 @@ $(document).ready(function(){
         var endyear = $('#endyear').val();
         var branch = $('#branch').val();
      
-        $.post("https://crc-master.herokuapp.com/dashboard",
+        $.post("https://crc-server.herokuapp.com/dashboard",
             {
                 optionV : optionVal,
                 start : startyear,
@@ -78,7 +84,7 @@ $(document).ready(function(){
                     row += '<td>' + i + '</td>'
                         +'<td>' + data[i-1].first_name + '</td>'
                         +'<td>' + data[i-1].last_name + '</td>'
-                        +'<td>' + data[i-1].collegeID + '</td>'
+                        +'<td>' + data[i-1].collegeID+ '</td>'
                         +'<td>' + data[i-1].dob + '</td>'
                         +'<td>' + data[i-1].phone + '</td>'
                         +'<td>' + data[i-1].email + '</td>'
@@ -87,12 +93,15 @@ $(document).ready(function(){
                         +'<td>' + data[i-1].btechMarks + '</td>'
                         +'<td>' + data[i-1].training_company + '</td>'
                         +'<td>' + data[i-1].training_location + '</td>'
-                        +'<td>' + data[i-1].training_duration + '</td>';
+                        +'<td>' + data[i-1].training_duration + '</td>'
+
+                        +'<td><a href="/downloadCV/'+data[i-1].collegeID + '""><input type="button" class="btn btn-info" value="View"></a></td>';
+                     
                      
             
                 row += "</tr>";
             }
-            $('#tbody').append(row);
+            $('#tbody').append(row); 
         });
     });
 
@@ -107,7 +116,7 @@ $(document).ready(function(){
         data.push(cols);
     });
 
-             $.post("https://crc-master.herokuapp.com/exportFile",
+             $.post("https://crc-server.herokuapp.com/exportFile",
                 {
                     fetchedData: data
                 },
@@ -118,7 +127,7 @@ $(document).ready(function(){
     });
 });
 
-  
+   
  </script>
   <script type="application/x-javascript">
         addEventListener("load", function () {

@@ -1,13 +1,50 @@
 <br/>
-<div class="col-lg-12>
-<div class="welcome-message">
-  <h3 style="color: white;">Welcome {{ Uname }}!</h3>
+<div class="row">
+  <div class="col-lg-6">
+    <div class="welcome-message">
+      <h4 style="color: white;">Welcome {{ Uname }}!</h4>
+    </div>
+  </div>
 </div>
+ 
+<div class="row">
+  <div class="col-lg-6 col-lg-offset-3 well">
+  <h2 class="welcome-message" style="color: #000;">Message Board:</h2> 
+  <marquee direction="up" height="195">
+          {{#each jobs}}
+          <h4><b>Jobs:</b></h4>
+          <div class="notice-block">
+            <div class="notice-title">
+              <b>{{placement_type}}</b> -  <b>{{comp_name}}</b> 
+            </div>
+              <div class="notice-description">
+              <b>Date:</b>{{date}} <b>Time:</b>{{time}} <b>Venue:</b>{{venue}}
+            </div>
+            <div class="notice-description">
+              <b>Eligibility:</b> - {{eligibility}}
+            </div>
+          </div>
+          <hr/>
+          {{/each}}
+          </marquee>
+  </div>       
+</div>
+
+        
+         
+        
+        </div>
+  </div> 
+   
 
 <hr/>
 
-<div class="well">
-<table class="table table-striped">
+
+ 
+<div class="container-fluid">
+<div class="well"> 
+<div class="table-responsive">
+<table class="table">
    <thead>
     <tr>
       <th scope="col">Field</th>
@@ -62,10 +99,6 @@
         <td>Native Place</td>
         <td>{{native_place}}</td>
       </tr>
-      <tr>
-        <td>Backlogs</td>
-        <td>{{backlogs}}</td>
-      </tr>
 				<tr>
         <td>Email</td>
         <td>{{email}}</td>
@@ -82,6 +115,8 @@
   	{{/each}}		
     </tbody>
 </table>
+</div>
+</div>
 </div>
 <hr/>
 </div>

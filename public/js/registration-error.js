@@ -94,8 +94,7 @@ $(document).ready(function () {
             native_place: {
                 required: true
             },
-
-            resume :{
+            resume: {
                 required: true
             }
 
@@ -185,7 +184,7 @@ $(document).ready(function () {
                  required: "Please enter the B.Tech Marks"
             },
             resume : {
-                required: "Please upload your resume"
+                required: "Please upload the CV"
             }
         },
         errorPlacement: function (error, element) {
@@ -229,7 +228,6 @@ $(function () {
     //end year here 
 
 });
-
 
 
 

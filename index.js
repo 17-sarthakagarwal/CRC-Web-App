@@ -12,11 +12,13 @@ const nodemailer = require('nodemailer');
 const bcrypt = require('bcryptjs');
 var {mongoose} = require('./db/mongoose');
 var {Student} = require('./models/studentModel');
+var {Job} = require('./models/jobModel');
 var {Admin} = require('./models/adminModel');
 var {Notice} = require('./models/noticeModel');
 const hbs = require('express-handlebars');
 const util = require('util');
 const writeFile = util.promisify(fs.writeFile);
+const fileUpload = require('express-fileupload');
 
 const AuthController = require('./controllers/AuthController');
 
@@ -42,6 +44,7 @@ app.engine( 'hbs', hbs( {
 } ) );
 
 app.set( 'view engine', 'hbs' );
+app.use(fileUpload());
 
 
 app.use((req, res, next) => {				//Middleware to pass the session object to the front-end
@@ -96,6 +99,7 @@ app.post('/login', (req,res) => {	//POST /login handler to redirect the request 
 			req.flash('info', 'Flash is back!')
 			res.redirect('/profile');
 		}).catch((e) => {
+			res.redirect('login',);
 			res.status(401).send();
 		});
 	}).catch((e) => 
@@ -128,10 +132,14 @@ app.get('/profile', (req,res) => {					//GET /profile will be rendered with prof
 		else{
 			let email = req.session.email;
 			Student.find({email:email}).then((student) => {
+				Job.find().then((jobs) => {
 			res.render('profile',{
 			layout:'layout.hbs',
 			Uname: email,
-			student
+			student,
+			jobs
+
+			})
 			});
 		}, () => {
 			console.log('Error',e);
@@ -151,8 +159,12 @@ app.get('/dashboard', (req,res) => {
 		}
 		else{
 				Student.find().then((students) => {
-				res.render('dashboard',{
-				students
+					Job.find().then((jobs) => {
+						res.render('dashboard',{
+							students,
+							jobs
+					})	
+				
 			});
 		}, (e) => {
 			console.log('Error',e);
@@ -188,7 +200,7 @@ app.get('/notices', (req,res) => {
 	}else{
 		Notice.find({}).then((notices) => {
 			res.render('notices',{
-				title:'Notices',
+				title:'Not8ices',
 				notices
 			});
 		}).catch(
@@ -207,31 +219,25 @@ app.get('/addNotice', (req,res) => {
 	}
 });
 
-app.post('/addNotice', (req,res,next) => {
+app.post('/addNotice', (req,res) => {
 	let title = req.body.title;
 	let description = req.body.desc;
-	let due_date = req.body.due_date;
-	let receiver = req.body.target;
 	req.title = title;
 	req.description = description;
 
-	req.date = due_date;
-
 	var notice = new Notice({
 		sender:'CRC',
-		receiver:'Students',
 		title,
-		description,
-		due_date
+		description
 	});
 
 	notice.save().then((notice) =>{
-		next();
+		res.redirect('dashboard');
 	}).catch((e) => {
 		console.log(e);
 	});
 
-}, (req,res,next) => {	
+} /*(req,res,next) => {	
 	var studentsEmails = [];
 	Student.find({}).then((students) => {
 			students.forEach((student) => studentsEmails.push(student.email));
@@ -259,7 +265,69 @@ app.post('/addNotice', (req,res,next) => {
 			console.log(e);
 		});
 
-		res.redirect('dashboard');
+		
+}*/);
+
+
+app.get('/postJob', (req,res) => {
+
+	if(typeof req.session.email === 'undefined'){	
+		res.redirect('/login');
+	}
+	else{
+		res.render('job.hbs');
+	}
+
+});
+
+app.post('/postJob', (req,res) => {
+
+	let comp_name = req.body.comp_name;
+	let placement_type = req.body.placement_type;
+	let location = req.body.location;
+	let venue = req.body.venue;
+	let date = req.body.date;
+	let time = req.body.time;
+	let eligibility = req.body.eligibility;
+	let jd = req.files.jd;
+
+	let comp_key = comp_name.split(' ');
+	comp_key = comp_key[0];
+
+	jd.mv(__dirname+`/docs/jd/jd_${comp_key}.doc`, function(err) {
+    if (err)
+      	return res.status(500).send(err);
+      console.log('JD uploaded!');
+  	});
+
+
+	var job = new Job({
+		comp_name, placement_type, location, venue, date, time, eligibility, comp_key
+	});
+
+
+	job.save().then((job) => {
+		
+		res.redirect('/dashboard');
+	}).catch((e) => {
+		console.log('Error'+e);
+	});
+
+});
+
+
+app.get('/getJobs', (req,res) => {
+
+	if(typeof req.session.email === 'undefined'){	
+		res.redirect('/login');
+	}
+	else{
+		Job.find({}).then((jobs) => {
+			res.render('viewJobs', {jobs});
+		}).catch((e) => {
+			console.log(e);
+		});
+	}
 });
 
 app.get('/addStudent',(req,res) => {
@@ -269,7 +337,7 @@ app.get('/addStudent',(req,res) => {
 	else {
 
 		if(req.session.email === 'v@gmail.com') 
-				res.render('registration.hbs');
+			res.render('registration.hbs');
 		
 		else 
 			res.render('profile.hbs');
@@ -300,9 +368,18 @@ app.post('/registration', (req,res,next) => {
 	req.email = email;
 	req.first_name = first_name;
 
+	let resume = req.files.resume;
+
+ 
+  	resume.mv(__dirname+`/docs/cv_${collegeID}.doc`, function(err) {
+    if (err)
+      return res.status(500).send(err);
+
+  	 console.log('File uploaded!');
+  	});
+
 	dob = dob.split('/');
 	dob = dob[1]+'/'+dob[0]+'/'+dob[2];
-	console.log(first_name+" "+last_name+" "+training_company+" "+dob+" "+collegeID+" "+course+" ");
 
 	if(tenthMarks<10){
 		tenthMarks = tenthMarks*9.5;
@@ -328,11 +405,10 @@ app.post('/registration', (req,res,next) => {
 		native_place
 	});
 
-	console.log('Student object created!! ', newStudent);
 
 	newStudent.save().then((student) => {
 		console.log('saving!!');
-		next();
+		res.redirect('/dashboard'); 
 	}).catch((e) => {
 		console.log('Error in saving!!'+e);
 	});
@@ -364,7 +440,7 @@ app.post('/registration', (req,res,next) => {
 		if (error) {
 	  		console.log(error);
 		}
-		res.redirect('/dashboard'); 
+		res.redirect('/dashboard');		
 	});
 });  
 
@@ -387,13 +463,48 @@ app.post('/exportFile', (req,res,next) => {
 	
 });
 
+/*app.get('/modal', (req,resume) => {
+	res.render('modal');
+});*/
+
 app.get('/exportFile', (req,res) => {
-	let file = __dirname+'/studentsRecord.xls';
-	res.download(file);
+
+	if(typeof req.session.email === 'undefined'){	
+		res.redirect('/login');
+	}
+	else{
+		let file = __dirname+'/studentsRecord.xls';
+		res.download(file);
+	}
+	
 });
 
 app.get('/logout', AuthController.logout);
 
+
+app.get('/downloadCV/:id', (req,res) => {
+	if(typeof req.session.email === 'undefined'){	
+		res.redirect('/login');
+	}
+	else{
+		res.download(__dirname+`/docs/cv_${req.params.id}.doc`);
+	}
+}, (req,res) => {
+	res.redirect('/dashboard');
+});
+
+app.get('/downloadJD/:id', (req,res) => {
+
+	if(typeof req.session.email === 'undefined'){	
+		res.redirect('/login');
+	}
+	else{
+		res.download(__dirname+`/docs/jd/jd_${req.params.id}.doc`);
+	}
+	
+}, (req,res) => {
+	res.redirect('/dashboard');
+});
 
 app.listen(PORT, () => {
 	console.log(`Server listening at ${PORT}...`);
